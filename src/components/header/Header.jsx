@@ -9,12 +9,16 @@ import {
   Button,
   Buttons,
 } from "./HeaderStyled.styled";
+import BurgerMenuContainer from "./BugerMenu/BurgerMenuContainer";
+import UserMenuContainer from "./UserMenu/UserMenuContainer";
 
 let Header = (props) => {
   return (
     <HeaderStyled>
       <HeaderContainer>
-        <CompanyAttr to="/">
+        <BurgerMenuContainer {...props} />
+
+        <CompanyAttr to="/" {...props}>
           <img src={logo} alt="" />
           <span>SquidWords</span>
         </CompanyAttr>
@@ -22,16 +26,17 @@ let Header = (props) => {
         <Menu>
           <NavLink to="/">Главная</NavLink>
           <NavLink to="/">Словари</NavLink>
-          {/* <NavLink to="/">Мои словари</NavLink> */}
-          {/* <NavLink to="/">Моё расписание</NavLink> */}
         </Menu>
-
-        <Buttons>
-          <Button reg to="/reg">
-            Регистрация
-          </Button>
-          <Button to="/auth">Войти</Button>
-        </Buttons>
+        {props.isAuth ? (
+          <UserMenuContainer />
+        ) : (
+          <Buttons>
+            <Button reg="true" to="/reg">
+              Регистрация
+            </Button>
+            <Button to="/login">Войти</Button>
+          </Buttons>
+        )}
       </HeaderContainer>
     </HeaderStyled>
   );

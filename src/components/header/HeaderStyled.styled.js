@@ -7,12 +7,14 @@ import { Container } from "../styledComponents/StyledComponents.styled";
 
 export const HeaderStyled = styled.header`
   height: 75px;
+  display: flex;
   border-bottom: solid 1px ${colors.grey};
 
   // @media (max-width: 600px) {  }
 `;
 
 export const HeaderContainer = styled(Container)`
+  width: 100%;
   display: grid;
   align-items: center;
   grid-template-columns: max-content 1fr max-content;
@@ -27,6 +29,10 @@ export const CompanyAttr = styled(NavLink)`
   img {
     width: 70px;
     margin: 0 5px 0 0;
+  }
+
+  @media (max-width: 600px) {
+    display: ${(props) => (props.isOpen ? "flex" : "none")};
   }
 `;
 export const Menu = styled.nav`

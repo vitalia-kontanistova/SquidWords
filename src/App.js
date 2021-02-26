@@ -2,7 +2,6 @@ import { Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/footer/Footer";
 import RegistrationContainer from "./components/registration/RegistrationContainer";
-import AuthorizationContainer from "./components/authorization/AuthorizationContainer";
 import {
   Container,
   Wrapper,
@@ -12,8 +11,13 @@ import LoginContainer from "./components/login/LoginContainer";
 import MainContainer from "./components/main/MainContainer";
 import DictionaryContainer from "./components/dictionary/DictionaryContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
+import { connect } from "react-redux";
+import { toggleUserMenu } from "./redux/header_reducer";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {}, []);
+
   return (
     <Wrapper>
       <HeaderContainer />
@@ -22,7 +26,6 @@ function App() {
           <Route exact path="/" render={() => <MainContainer />} />
           <Route path="/login" render={() => <LoginContainer />} />
           <Route path="/reg" render={() => <RegistrationContainer />} />
-          <Route path="/auth" render={() => <AuthorizationContainer />} />
           <Route
             path="/dictionary/:dictionaryId"
             render={() => <DictionaryContainer />}
@@ -34,4 +37,6 @@ function App() {
   );
 }
 
-export default App;
+let mapState = (state) => ({});
+
+export default connect(mapState, { toggleUserMenu })(App);
