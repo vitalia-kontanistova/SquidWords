@@ -31,7 +31,7 @@ let Header = (props) => {
           <UserMenuContainer />
         ) : (
           <Buttons>
-            <Button reg="true" to="/reg">
+            <Button reg to="/reg">
               Регистрация
             </Button>
             <Button to="/login">Войти</Button>

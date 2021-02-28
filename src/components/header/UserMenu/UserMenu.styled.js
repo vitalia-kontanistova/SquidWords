@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { colors } from "../../../global";
 
-export const StyledUser = styled.div`
+export const StyledUserMenu = styled.div`
   position: relative;
   color: ${colors.white};
 `;
@@ -22,7 +22,7 @@ export const StyledNav = styled(NavLink)`
   line-height: 19px;
   margin: 5px 0;
 `;
-export const StyledUser1 = styled.div`
+export const StyledUser = styled.div`
   min-width: 121px;
   display: flex;
   align-items: center;
