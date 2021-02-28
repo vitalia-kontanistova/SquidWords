@@ -9,7 +9,7 @@ const BurgerMenu = (props) => {
         {props.isAuth ? (
           <>
             <StyledNav to="/">Словари</StyledNav>
-            <StyledNav to="/">Мои словари</StyledNav>
+            <StyledNav to="/my-dictionaries">Мои словари</StyledNav>
             <StyledNav to="/">Моё расписание</StyledNav>
             <StyledNav to="/">Настройки</StyledNav>
             <StyledNav to="/">О сайте</StyledNav>

@@ -14,6 +14,7 @@ import HeaderContainer from "./components/header/HeaderContainer";
 import { connect } from "react-redux";
 import { toggleUserMenu } from "./redux/header_reducer";
 import { useEffect } from "react";
+import MyDictionariesContainer from "./components/myDictionaries/MyDictionariesContainer";
 
 function App() {
   useEffect(() => {}, []);
@@ -26,6 +27,10 @@ function App() {
           <Route exact path="/" render={() => <MainContainer />} />
           <Route path="/login" render={() => <LoginContainer />} />
           <Route path="/reg" render={() => <RegistrationContainer />} />
+          <Route
+            path="/my-dictionaries"
+            render={() => <MyDictionariesContainer />}
+          />
           <Route
             path="/dictionary/:dictionaryId"
             render={() => <DictionaryContainer />}

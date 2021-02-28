@@ -1,3 +1,3 @@
-export const getAllDictionaries = (state) => {
-  return state.dictionaries.dictionaries;
+export const getMyDictionaries = (state) => {
+  return state.personalDictionaries.myDictionaries;
 };

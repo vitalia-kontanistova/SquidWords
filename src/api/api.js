@@ -37,7 +37,14 @@ export const personalDictionariesAPI = {
     return instance.get("/api/PersonalDictionaries/timetable/info");
   },
 
-  getPersonalDictionaries(id) {
+  getPersonalDictionaries() {
+    let token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMiLCJuYmYiOjE2MTQ1Mjg0MDMsImV4cCI6MTYxNDUyOTMwMywiaWF0IjoxNjE0NTI4NDAzfQ.Dx7m-TcfHt-bkFbr-vCscutBxQMtv1q2sXq4_9M5PNU";
+    let config = { Authorization: `Bearer ${token}` };
+    return instance.get("/api/PersonalDictionaries/", config);
+  },
+
+  getPersonalDictionary(id) {
     return instance.post("/api/PersonalDictionaries/" + id, { id: id });
   },
 };
