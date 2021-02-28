@@ -56,6 +56,7 @@ export const authenticateThunkCreator = ({ email, pass }) => (dispatch) => {
     .then((response) => {
       if (response.status === 200) {
         dispatch(authenticate(response.data));
+        localStorage.setItem("TOkeN", response.data.jwtToken); // пока так, поправить позже
       }
     })
     .catch((error) => {
