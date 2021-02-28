@@ -1,5 +1,5 @@
 import React from "react";
-import DictionaryListContainer from "../dictionaryList/DictionaryListContainer";
+import DictionaryList from "../dictionaryList/DictionaryList";
 import { Title } from "../styledComponents/StyledComponents.styled";
 import { Block, Intro, Body } from "./MaintStyled.styled";
 
@@ -25,7 +25,7 @@ const Main = (props) => {
       </Intro>
       <Title left>Список словарей:</Title>
       <Body>
-        <DictionaryListContainer />
+        <DictionaryList {...props} />
       </Body>
     </div>
   );
