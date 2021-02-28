@@ -48,25 +48,39 @@ export let setPersonalDictionaries = (dictionaries) => ({
 });
 
 export const getPersonalDictionariesThunkCreator = () => (dispatch) => {
-  return personalDictionariesAPI.getPersonalDictionaries().then((resp) => {
-    let dictionaries = resp.data.map((d) => {
-      let hasCover = !!d.imgUrl && d.imgUrl !== "/";
-      let cover = hasCover ? d.imgUrl : cover00;
-      let words = d.words ? d.words.length : "100500";
-      let summary = !!d.summary
-        ? d.summary
-        : 'Наиболее часто употребляемые слова на тему: "' + d.name + '"';
-      return {
-        id: d.id,
-        cover: cover,
-        title: d.name,
-        descr: summary,
-        info: "Слов: " + words,
-      };
-    });
+  return personalDictionariesAPI
+    .getPersonalDictionaries()
+    .then((resp) => {
+      let dictionaries = resp.data.map((d) => {
+        let hasCover = !!d.imgUrl && d.imgUrl !== "/";
+        let cover = hasCover ? d.imgUrl : cover00;
+        let words = d.words ? d.words.length : "100500";
+        let summary = !!d.summary
+          ? d.summary
+          : 'Наиболее часто употребляемые слова на тему: "' + d.name + '"';
+        return {
+          id: d.id,
+          cover: cover,
+          title: d.name,
+          descr: summary,
+          info: "Слов: " + words,
+        };
+      });
 
-    dispatch(setPersonalDictionaries(dictionaries));
-  });
+      dispatch(setPersonalDictionaries(dictionaries));
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.error(error.response.data.message);
+        debugger;
+      } else if (error.request) {
+        console.log(error.request);
+        debugger;
+      } else {
+        console.log("Error", error.message);
+        debugger;
+      }
+    });
 };
 
 export default personalDictionariesReducer;

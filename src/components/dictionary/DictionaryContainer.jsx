@@ -19,7 +19,7 @@ function DictionaryContainer(props) {
     props.getDictionary(dictionaryId);
   }, [dictionaryId]);
 
-  if (props.dictionary.id !== dictionaryId) {
+  if (props.dictionary.id === -1) {
     return <Preloader />;
   }
   return <Dictionary {...props} />;
