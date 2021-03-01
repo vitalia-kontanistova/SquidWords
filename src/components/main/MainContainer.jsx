@@ -13,7 +13,6 @@ const MainContainer = (props) => {
 };
 
 const mapState = (state) => ({
-  isAuth: state.auth.isAuth,
   dictionaries: getAllDictionaries(state),
 });
 

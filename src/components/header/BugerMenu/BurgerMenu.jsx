@@ -13,7 +13,9 @@ const BurgerMenu = (props) => {
             <StyledNav to="/">Моё расписание</StyledNav>
             <StyledNav to="/">Настройки</StyledNav>
             <StyledNav to="/">О сайте</StyledNav>
-            <StyledNav to="/">Выйти</StyledNav>
+            <StyledNav to="/" onClick={props.logout}>
+              Выйти
+            </StyledNav>
           </>
         ) : (
           <>

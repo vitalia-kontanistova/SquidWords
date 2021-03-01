@@ -29,7 +29,9 @@ const UserMenu = (props) => {
         <StyledNav to="/my-dictionaries">Мои словари</StyledNav>
         <StyledNav to="/">Моё расписание</StyledNav>
         <StyledNav to="/">Настройки</StyledNav>
-        <StyledNav to="/">Выйти</StyledNav>
+        <StyledNav to="/" onClick={props.logout}>
+          Выйти
+        </StyledNav>
       </StyledMenu>
     </StyledUserMenu>
   );

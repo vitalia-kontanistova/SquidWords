@@ -28,7 +28,7 @@ let Header = (props) => {
           <NavLink to="/">Словари</NavLink>
         </Menu>
         {props.isAuth ? (
-          <UserMenuContainer />
+          <UserMenuContainer logout={props.logout} />
         ) : (
           <Buttons>
             <Button reg to="/reg">
