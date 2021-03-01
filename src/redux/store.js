@@ -5,8 +5,10 @@ import headerReducer from "./header_reducer";
 import dictionariesReducer from "../redux/dictionaries_reducer";
 import personalDictionariesReducer from "./personal_dictionaries_reducer";
 import wordsReducer from "./words_reducer";
+import appReducer from "./app_reducer";
 
 let reducers = combineReducers({
+  app: appReducer,
   auth: authReducer,
   header: headerReducer,
   dictionaries: dictionariesReducer,

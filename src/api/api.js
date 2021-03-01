@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const token = localStorage.getItem("TOkeN"); // пока так, поправить позже
+const userData = JSON.parse(localStorage.getItem("user")); // пока так, поправить позже
+const token = userData ? userData.jwtToken : null; // пока так, поправить позже
 
 const instance = axios.create({
   baseURL: "http://194.67.87.190:9000/",
