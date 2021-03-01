@@ -1,13 +1,17 @@
 import axios from "axios";
 
-const userData = JSON.parse(localStorage.getItem("user")); // пока так, поправить позже
-const token = userData ? userData.jwtToken : null; // пока так, поправить позже
+const getInstance = () => {
+  const userData = JSON.parse(localStorage.getItem("user")); // пока так, поправить позже
+  const token = userData ? userData.jwtToken : null; // пока так, поправить позже
 
-const instance = axios.create({
-  baseURL: "http://194.67.87.190:9000/",
-  withCredentials: true,
-  headers: { Authorization: "Bearer " + token },
-});
+  const instance = axios.create({
+    baseURL: "http://194.67.87.190:9000/",
+    withCredentials: true,
+    headers: { Authorization: "Bearer " + token },
+  });
+
+  return instance;
+};
 
 export const accountAPI = {
   register({ name, email, password }) {
@@ -20,32 +24,32 @@ export const accountAPI = {
       confirmPassword: password,
       acceptTerms: true,
     };
-    return instance.post("/Accounts/register", params);
+    return getInstance().post("/Accounts/register", params);
   },
   authenticate({ email, password }) {
-    return instance.post("/Accounts/authenticate", { email, password });
+    return getInstance().post("/Accounts/authenticate", { email, password });
   },
 };
 
 export const dictionariesAPI = {
   getDictionaries() {
-    return instance.get("/api/Dictionaries");
+    return getInstance().get("api/Dictionaries");
   },
   getDictionary(id) {
-    return instance.get("/api/Dictionaries/" + id);
+    return getInstance().get("api/Dictionaries/" + id);
   },
 };
 
 export const personalDictionariesAPI = {
   getTimetableInfo() {
-    return instance.get("/api/PersonalDictionaries/timetable/info");
+    return getInstance().get("api/PersonalDictionaries/timetable/info");
   },
 
   getPersonalDictionaries() {
-    return instance.get("/api/PersonalDictionaries/");
+    return getInstance().get("api/PersonalDictionaries/");
   },
 
   getPersonalDictionary(id) {
-    return instance.post("/api/PersonalDictionaries/" + id, { id: id });
+    return getInstance().post("api/PersonalDictionaries/" + id, { id: id });
   },
 };
