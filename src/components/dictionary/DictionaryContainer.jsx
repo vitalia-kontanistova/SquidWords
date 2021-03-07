@@ -28,13 +28,11 @@ function DictionaryContainer(props) {
 const mapState = (state) => ({
   dictionary: getDictionary(state),
   words: getWords(state),
-  wordsToStudy: getWordsToStudy(state),
 });
 
 export default compose(
   connect(mapState, {
     getDictionary: getCurrentDictionaryThunkCreator,
-    setWordToStudy: setWordToStudy,
   }),
   withRouter
 )(DictionaryContainer);

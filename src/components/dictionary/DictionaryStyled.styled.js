@@ -39,6 +39,7 @@ export const WordsList = styled.div`
   width: 100%;
   border: 0.5px solid ${colors.grey};
   border-radius: 5px;
+  margin-top: 15px;
 `;
 export const WordsStyled = styled.div`
   display: grid;
@@ -52,4 +53,15 @@ export const WordsStyled = styled.div`
 `;
 export const Cell = styled.div`
   text-align: ${(props) => (props.center ? "center" : "left")};
+`;
+export const LearnDictionaryButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+export const LineDecor = styled.div`
+  width: 60%;
+  height: 2px;
+  margin-top: 20px;
+  border-radius: 1px;
+  background-color: ${colors.grey};
 `;

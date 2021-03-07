@@ -1,18 +1,11 @@
 import { personalDictionariesAPI } from "../api/api";
 import cover00 from "../assets/img/covers/cover.png";
+import { refreshTokenThunkCreator, temp } from "./auth_reducer";
 
 const SET_PERSONAL_DICTIONARIES = "SET_PERSONAL_DICTIONARIES";
 
 let initialState = {
-  myDictionaries: [
-    {
-      id: -1,
-      cover: "",
-      title: "",
-      descr: "",
-      info: "",
-    },
-  ],
+  myDictionaries: [],
   // currentDictionary: {
   //   id: -1,
   //   title: "",
@@ -51,17 +44,23 @@ export const getPersonalDictionariesThunkCreator = () => (dispatch) => {
   return personalDictionariesAPI
     .getPersonalDictionaries()
     .then((resp) => {
-      let dictionaries = resp.data.map((d) => {
-        let hasCover = !!d.imgUrl && d.imgUrl !== "/";
-        let cover = hasCover ? d.imgUrl : cover00;
-        let words = d.words ? d.words.length : "100500";
-        let summary = !!d.summary
-          ? d.summary
-          : 'Наиболее часто употребляемые слова на тему: "' + d.name + '"';
+      let dictionaries = resp.data.map((dictionaryData) => {
+        let dictionary = dictionaryData.dictionary;
+
+        let hasCover = !!dictionary.imgUrl && dictionary.imgUrl !== "/";
+        let cover = hasCover ? dictionary.imgUrl : cover00;
+        let words = dictionaryData.personalWords
+          ? dictionaryData.personalWords.length
+          : "100500";
+        let summary = !!dictionary.summary
+          ? dictionary.summary
+          : 'Наиболее часто употребляемые слова на тему: "' +
+            dictionary.name +
+            '"';
         return {
-          id: d.id,
+          id: dictionary.id,
           cover: cover,
-          title: d.name,
+          title: dictionary.name,
           descr: summary,
           info: "Слов: " + words,
         };

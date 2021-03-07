@@ -1,5 +1,9 @@
 import React from "react";
-import { Summary, Title } from "../styledComponents/StyledComponents.styled";
+import {
+  Summary,
+  Title,
+  RecurrentButton,
+} from "../styledComponents/StyledComponents.styled";
 import {
   Body,
   CoverStyled,
@@ -7,11 +11,12 @@ import {
   WordsStyled,
   WordsList,
   Cell,
+  LearnDictionaryButton,
+  LineDecor,
 } from "./DictionaryStyled.styled";
 
 const Dictionary = (props) => {
   let { cover, summary, title, words } = props.dictionary;
-  let wordsToStudy = props.wordsToStudy;
 
   let wordsList = words.map((w) => {
     return (
@@ -31,6 +36,8 @@ const Dictionary = (props) => {
       </WordsStyled>
     );
   });
+  let pathLearn = props.isAuth ? "/my-dictionaries" : "/login";
+  // let path = props.isAuth ? "/my-dictionary/" + id : "/login";
 
   return (
     <DictionaryStyled>
@@ -41,6 +48,10 @@ const Dictionary = (props) => {
       <Body>
         <Title left>{title}</Title>
         <Summary>{summary}</Summary>
+        <LearnDictionaryButton>
+          <RecurrentButton href={pathLearn}>Учить словарь</RecurrentButton>
+        </LearnDictionaryButton>
+        <LineDecor />
         <WordsList>{wordsList}</WordsList>
       </Body>
     </DictionaryStyled>
