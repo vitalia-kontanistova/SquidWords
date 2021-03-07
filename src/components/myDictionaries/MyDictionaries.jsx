@@ -11,7 +11,7 @@ const MyDictionaries = (props) => {
         {props.dictionaries.length === 0 ? (
           <NoDictionaries>У Вас пока нет ни одного словаря!</NoDictionaries>
         ) : (
-          <DictionaryList {...props} />
+          <DictionaryList {...props} personal={true} />
         )}
       </Body>
     </div>

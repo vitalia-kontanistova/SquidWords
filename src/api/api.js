@@ -1,16 +1,14 @@
 import axios from "axios";
 
 const getInstance = () => {
-  const userData = JSON.parse(localStorage.getItem("user")); // пока так, поправить позже
-  const token = userData ? userData.jwtToken : null; // пока так, поправить позже
+  let tokenData = JSON.parse(localStorage.getItem("tokenData"));
+  let token = tokenData ? tokenData.token : null;
 
-  const instance = axios.create({
+  return axios.create({
     baseURL: "http://194.67.87.190:9000/",
     withCredentials: true,
     headers: { Authorization: "Bearer " + token },
   });
-
-  return instance;
 };
 
 export const accountAPI = {
@@ -50,6 +48,10 @@ export const personalDictionariesAPI = {
   },
 
   getPersonalDictionary(id) {
-    return getInstance().post("api/PersonalDictionaries/" + id, { id: id });
+    return getInstance().post("api/PersonalDictionaries/" + id);
+  },
+
+  deletePersonalDictionary(id) {
+    return getInstance().delete("api/PersonalDictionaries/" + id);
   },
 };

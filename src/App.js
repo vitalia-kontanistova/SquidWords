@@ -17,6 +17,7 @@ import {
 } from "./components/styledComponents/StyledComponents.styled";
 import { isAuth } from "./redux/auth_selectors";
 import Preloader from "./components/preloader/Preloader";
+import MyDictionaryContainer from "./components/myDictionary/MyDictionaryContainer";
 
 function App(props) {
   useEffect(() => {
@@ -24,12 +25,8 @@ function App(props) {
   }, []);
 
   if (!props.isInitialized) {
-    debugger;
-
     return <Preloader />;
   } else {
-    debugger;
-
     return (
       <Wrapper>
         <HeaderContainer isAuth={props.isAuth} />
@@ -51,7 +48,11 @@ function App(props) {
             />
             <Route
               path="/dictionary/:dictionaryId"
-              render={() => <DictionaryContainer />}
+              render={() => <DictionaryContainer isAuth={props.isAuth} />}
+            />
+            <Route
+              path="/my-dictionary/:dictionaryId"
+              render={() => <MyDictionaryContainer isAuth={props.isAuth} />}
             />
           </Container>
         </Content>

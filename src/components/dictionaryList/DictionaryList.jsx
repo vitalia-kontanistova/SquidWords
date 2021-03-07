@@ -16,6 +16,7 @@ const DictionaryList = (props) => {
       title={dict.title}
       descr={dict.descr}
       info={dict.info}
+      personal={props.personal}
     />
   ));
   return <DictionaryListStyled>{dictionaryList}</DictionaryListStyled>;
@@ -23,9 +24,9 @@ const DictionaryList = (props) => {
 
 const DictionaryTile = (props) => {
   let { id, cover, title, descr, info } = props;
-
+  let path = props.personal ? "/my-dictionary/" : "/dictionary/";
   return (
-    <DictionaryTileStyled to={"/dictionary/" + id}>
+    <DictionaryTileStyled to={path + id}>
       <Cover src={cover} alt="" />
       <Body>
         <Text title="true">{title}</Text>

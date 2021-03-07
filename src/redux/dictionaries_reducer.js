@@ -48,7 +48,7 @@ export let setDictionaries = (dictionaries) => ({
   dictionaries,
 });
 
-export let setCurentDictionary = ({ id, title, summary, cover, words }) => ({
+export let setCurrentDictionary = ({ id, title, summary, cover, words }) => ({
   type: SET_CURRENT_DICTIONARY,
   dictionary: { id, title, summary, cover, words },
 });
@@ -97,7 +97,7 @@ export const getCurrentDictionaryThunkCreator = (id) => (dispatch) => {
       cover: cover,
       words,
     };
-    dispatch(setCurentDictionary(dictionary));
+    dispatch(setCurrentDictionary(dictionary));
   });
 };
 

@@ -21,14 +21,6 @@ const Dictionary = (props) => {
   let wordsList = words.map((w) => {
     return (
       <WordsStyled key={w.id}>
-        {/*         <Cell center>
-          <input
-            type="checkbox"
-            checked={wordsToStudy.some((word) => word.id === w.id)}
-            onClick={() => props.setWordToStudy(w)}
-          />
-        </Cell>
- */}
         <Cell center>{w.position}</Cell>
         <Cell>{w.wordOrigin}</Cell>
         <Cell>{w.wordTranscription}</Cell>
@@ -36,8 +28,9 @@ const Dictionary = (props) => {
       </WordsStyled>
     );
   });
-  let pathLearn = props.isAuth ? "/my-dictionaries" : "/login";
-  // let path = props.isAuth ? "/my-dictionary/" + id : "/login";
+  let pathLearn = props.isAuth
+    ? "/my-dictionary/" + props.dictionary.id
+    : "/login";
 
   return (
     <DictionaryStyled>

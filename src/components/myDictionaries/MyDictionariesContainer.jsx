@@ -10,7 +10,7 @@ const MyDictionariesContainer = (props) => {
     if (props.isAuth) {
       props.getMyDictionaries();
     }
-  }, []);
+  }, [props.dictionaries]);
 
   if (!props.isAuth) {
     return <Redirect to="/login" />;
