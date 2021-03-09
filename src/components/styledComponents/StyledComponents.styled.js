@@ -47,7 +47,7 @@ export const Title = styled.h1`
 export const Summary = styled.div`
   font-size: 18px;
   margin-top: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 `;
 
 export const Button = styled.button`
@@ -63,4 +63,30 @@ export const Button = styled.button`
   &:disabled {
     background: ${colors.grey};
   }
+`;
+
+export const RecurrentButton = styled.a`
+  width: fit-content;
+  height: fit-content;
+  font-size: ${(props) => (props.narrow ? "12px" : "14px")};
+  padding: ${(props) => (props.narrow ? "2px" : "5px")} 10px;
+  background: ${(props) => (props.red ? colors.red : colors.blue)};
+  border-radius: 5px;
+  display: block;
+  white-space: nowrap;
+
+  &,
+  :visited,
+  :active,
+  :hover {
+    color: ${colors.white};
+  }
+`;
+
+export const KnowWordButton = styled.button`
+  font-size: 12px;
+  padding: 2px 10px;
+  background: ${(props) => (props.red ? colors.red : colors.blue)};
+  white-space: nowrap;
+  color: ${colors.white};
 `;
