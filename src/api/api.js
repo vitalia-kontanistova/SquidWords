@@ -47,11 +47,24 @@ export const personalDictionariesAPI = {
     return getInstance().get("api/PersonalDictionaries/");
   },
 
-  getPersonalDictionary(id) {
+  createPersonalDictionary(id) {
     return getInstance().post("api/PersonalDictionaries/" + id);
+  },
+
+  getPersonalDictionary(id) {
+    return getInstance().get("api/PersonalDictionaries/" + id);
   },
 
   deletePersonalDictionary(id) {
     return getInstance().delete("api/PersonalDictionaries/" + id);
+  },
+};
+
+export const wordAPI = {
+  setKnowWord(id) {
+    return getInstance().put("/api/PersonalWords/knowword/" + id);
+  },
+  setDontKnowWord(id) {
+    return getInstance().put("/api/PersonalWords/dontknowword/" + id);
   },
 };

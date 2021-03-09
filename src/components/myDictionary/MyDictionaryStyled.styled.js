@@ -35,7 +35,7 @@ export const Body = styled.div`
   width: 100%;
 `;
 
-export const WordsList = styled.div`
+export const WordsListStyled = styled.div`
   width: 100%;
   border: 0.5px solid ${colors.grey};
   border-radius: 5px;
@@ -43,16 +43,15 @@ export const WordsList = styled.div`
 `;
 export const WordsStyled = styled.div`
   display: grid;
-  /* grid-template-columns: 41px 1fr 1fr 2fr; */
-  grid-template-columns: min-content 41px 1fr 1fr 2fr;
-  div {
-    background: ${colors.white};
-    border: 0.5px solid ${colors.grey};
-    padding: 3px 8px;
-  }
+  grid-template-columns: min-content 41px 2fr 2fr 4fr 1fr 85px;
 `;
 export const Cell = styled.div`
-  text-align: ${(props) => (props.center ? "center" : "left")};
+  background: ${colors.white};
+  border: 0.5px solid ${colors.grey};
+  padding: 3px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: ${(props) => (props.center ? "center" : "left")};
 `;
 export const LearnDictionaryButton = styled.div`
   display: flex;
@@ -64,4 +63,14 @@ export const LineDecor = styled.div`
   margin-top: 20px;
   border-radius: 1px;
   background-color: ${colors.grey};
+`;
+
+export const ScoreItem = styled.span`
+  width: 6px;
+  height: 12px;
+  margin: 2px;
+  background-color: ${(props) => (props.blue ? colors.blue : colors.grey)};
+`;
+export const ScoreScaleStyled = styled.div`
+  display: flex;
 `;

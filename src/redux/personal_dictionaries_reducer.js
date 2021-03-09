@@ -13,8 +13,9 @@ let initialState = {
     cover: "",
     words: [
       {
-        id: 0,
+        wordId: 0,
         position: 0,
+        score: 0,
         wordOrigin: "",
         wordTranscription: "",
         wordTranslate: "",
@@ -88,47 +89,77 @@ export const getPersonalDictionariesThunkCreator = () => (dispatch) => {
 };
 
 /* ********************* */
+export const createPersonalDictionaryThunkCreator = (dictionaryId) => (
+  dispatch
+) => {
+  return personalDictionariesAPI
+    .createPersonalDictionary(dictionaryId)
+    .then((resp) => {
+      let hasCover =
+        !!resp.data.dictionary.imgUrl && resp.data.dictionary.imgUrl !== "/";
+      let cover = hasCover ? resp.data.dictionary.imgUrl : cover00;
+      let description = !!resp.data.dictionary.summary
+        ? resp.data.dictionary.summary
+        : 'Наиболее часто употребляемые слова на тему: "' +
+          resp.data.dictionary.name +
+          '"';
+
+      let words = resp.data.personalWords.map((w) => ({
+        wordId: w.id,
+        score: w.score,
+        position: w.word.position,
+        wordOrigin: w.word.wordOrigin,
+        wordTranscription: w.word.wordTranscription,
+        wordTranslate: w.word.wordTranslate,
+      }));
+
+      let dictionary = {
+        id: resp.data.id,
+        title: resp.data.dictionary.name,
+        summary: description,
+        cover: cover,
+        words,
+      };
+
+      dispatch(setPersonalDictionary(dictionary));
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.error(error.response.data.message);
+        debugger;
+      } else if (error.request) {
+        console.log(error.request);
+        debugger;
+      } else {
+        console.log("Error", error.message);
+        debugger;
+      }
+    });
+};
+
 export const getPersonalDictionaryThunkCreator = (dictionaryId) => (
   dispatch
 ) => {
   return personalDictionariesAPI
     .getPersonalDictionary(dictionaryId)
     .then((resp) => {
-      /* 
-        data:
-          dictionary:
-            id: 3
-            imgUrl: "/"
-            name: "Fruits (Фрукты)"
-            summary: ""
-          personalWords: Array(29)
-            0:
-            id: 176
-            score: 0
-            word:
-              dictionaryId: 3
-              id: 1045
-              position: 1
-              wordOrigin: "apple"
-              wordTranscription: "[ æpl ]"
-              wordTranslate: "яблоко"          
-        */
-
       let hasCover =
         !!resp.data.dictionary.imgUrl && resp.data.dictionary.imgUrl !== "/";
       let cover = hasCover ? resp.data.dictionary.imgUrl : cover00;
-      let words = resp.data.personalWords.map((w) => ({
-        wordId: w.id,
-        position: w.word.position,
-        wordOrigin: w.word.wordOrigin,
-        wordTranscription: w.word.wordTranscription,
-        wordTranslate: w.word.wordTranslate,
-      }));
       let description = !!resp.data.dictionary.summary
         ? resp.data.dictionary.summary
         : 'Наиболее часто употребляемые слова на тему: "' +
           resp.data.dictionary.name +
           '"';
+
+      let words = resp.data.personalWords.map((w) => ({
+        wordId: w.id,
+        score: w.score,
+        position: w.word.position,
+        wordOrigin: w.word.wordOrigin,
+        wordTranscription: w.word.wordTranscription,
+        wordTranslate: w.word.wordTranslate,
+      }));
 
       let dictionary = {
         id: resp.data.id,
@@ -159,8 +190,7 @@ export const deletePersonalDictionaryThunkCreator = (dictionaryId) => (
 ) => {
   return personalDictionariesAPI
     .deletePersonalDictionary(dictionaryId)
-    .then((resp) => {
-    })
+    .then((resp) => {})
     .catch((error) => {
       if (error.response) {
         console.log("deletePersonalDictionaryThunkCreator");
