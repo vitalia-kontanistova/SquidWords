@@ -27,6 +27,9 @@ export const accountAPI = {
   authenticate({ email, password }) {
     return getInstance().post("/Accounts/authenticate", { email, password });
   },
+  refreshToken() {
+    return getInstance().post("/Accounts/refresh-token", {});
+  },
 };
 
 export const dictionariesAPI = {

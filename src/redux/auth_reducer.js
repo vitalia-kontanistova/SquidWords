@@ -44,6 +44,7 @@ export const setUserData = ({ email, firstName, id, isVerified, role }) => ({
 export const logOut = () => ({
   type: LOGOUT,
   userData: {
+    id: -1,
     role: "",
     firstName: "",
     isVerified: false,
@@ -59,8 +60,22 @@ export const logInThunkCreator = ({ email, pass }) => (dispatch) => {
     .authenticate({ email, password: pass })
     .then((response) => {
       if (response.status === 200) {
-        dispatch(setUserData(response.data));
-        localStorage.setItem("user", JSON.stringify(response.data)); // пока так, поправить позже
+        const user = {
+          id: response.data.id,
+          firstName: response.data.firstName,
+          role: response.data.role,
+          isVerified: response.data.isVerified,
+        };
+
+        dispatch(setUserData(user));
+        startRefreshTokenTimer(dispatch);
+
+        const tokenData = {
+          token: response.data.jwtToken,
+        };
+
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("tokenData", JSON.stringify(tokenData));
       }
     })
     .catch((error) => {
@@ -80,8 +95,10 @@ export const logInThunkCreator = ({ email, pass }) => (dispatch) => {
 };
 
 export const logOutThunkCreator = () => (dispatch) => {
-  localStorage.removeItem("user"); // пока так, поправить позже
+  localStorage.removeItem("user");
+  localStorage.removeItem("tokenData");
   dispatch(logOut());
+  stopRefreshTokenTimer();
 };
 
 export const registerThunkCreator = ({ email, name, pass }) => (dispatch) => {
@@ -107,5 +124,72 @@ export const registerThunkCreator = ({ email, name, pass }) => (dispatch) => {
       }
     });
 };
+
+/* export const refreshTokenThunkCreator = () => (dispatch) => {
+  debugger;
+  accountAPI
+    .refreshToken()
+    .then((response) => {
+      debugger;
+      if (response.status === 200) {
+        const user = {
+          id: response.data.id,
+          firstName: response.data.firstName,
+          role: response.data.role,
+          isVerified: response.data.isVerified,
+        };
+
+        dispatch(setUserData(user));
+        startRefreshTokenTimer(dispatch);
+
+        const tokenData = {
+          token: response.data.jwtToken,
+        };
+
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("tokenData", JSON.stringify(tokenData));
+        debugger;
+      }
+    })
+    .catch((error) => {
+      if (error.response) {
+        console.error(error.response.data.message);
+        debugger;
+      } else if (error.request) {
+        console.error(error.request);
+        debugger;
+      } else {
+        console.error("Error", error.message);
+        debugger;
+      }
+    });
+}; */
+
+let refreshTokenTimeout;
+function startRefreshTokenTimer(dispatch) {
+  let timeout = 840000;
+
+  /*   
+  if (localStorage.getItem("tokenData")) {
+    let tokenData = JSON.parse(localStorage.getItem("tokenData"));
+    let wholeToken = tokenData ? tokenData.token : "";
+    const jwtToken = JSON.parse(atob(wholeToken.split(".")[1]));
+
+    const expires = new Date(jwtToken.exp * 1000);
+    timeout = expires.getTime() - Date.now() - 60 * 1000;
+  }
+  refreshTokenTimeout = setTimeout(dispatch(refreshTokenThunkCreator()), timeout);
+ */
+
+  refreshTokenTimeout = setTimeout(() => {
+    dispatch(logOutThunkCreator());
+    alert("after dispatch(logOutThunkCreator())");
+  }, 600000);
+  // }, timeout);
+}
+
+function stopRefreshTokenTimer() {
+  clearTimeout(refreshTokenTimeout);
+}
 
 export default authReducer;
