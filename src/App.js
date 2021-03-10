@@ -18,6 +18,7 @@ import {
 import { isAuth } from "./redux/auth_selectors";
 import Preloader from "./components/preloader/Preloader";
 import MyDictionaryContainer from "./components/myDictionary/MyDictionaryContainer";
+import LessonContainer from "./components/lesson/LessonContainer";
 
 function App(props) {
   useEffect(() => {
@@ -53,6 +54,10 @@ function App(props) {
             <Route
               path="/my-dictionary/:dictionaryId"
               render={() => <MyDictionaryContainer isAuth={props.isAuth} />}
+            />
+            <Route
+              path="/lesson"
+              render={() => <LessonContainer isAuth={props.isAuth} />}
             />
           </Container>
         </Content>
