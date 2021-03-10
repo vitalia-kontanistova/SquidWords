@@ -13,44 +13,36 @@ import {
   setKnowSelectedWordsThunkCreator,
   setDontKnowSelectedWordsThunkCreator,
   setKnowWordThunkCreator,
+  toggleSelectedWord,
+  setSelectedWords,
 } from "../../redux/words_reducer";
 
 function MyDictionaryContainer(props) {
+  useEffect(() => {
+    props.getDictionary(props.match.params.dictionaryId);
+
+    console.log("MyDictionaryContainer " + props.selectedWords.length);
+  }, [props.dictionary.id, props.selectedWords.length]);
+
   let [isRemoved, setRemovingStatus] = useState(false);
   let deleteFromPersonals = () => {
     props.deleteDictionary(props.dictionary.id);
     setRemovingStatus(true);
   };
 
-  let [selectedWords, setSelectedWords] = useState([]);
-  let toggleSelectedWord = (word) => {
-    let hasCurrentWord = selectedWords.some((w) => w.wordId === word.wordId);
-
-    if (hasCurrentWord) {
-      setSelectedWords(selectedWords.filter((w) => w.wordId !== word.wordId));
-    } else {
-      setSelectedWords([...selectedWords, word]);
-    }
-  };
-
-  useEffect(() => {
-    props.getDictionary(props.match.params.dictionaryId);
-  }, [props.dictionary]);
-
+  let selectedWords = props.selectedWords;
   let knowSelectedWords = () => {
     props.knowWords(selectedWords);
-    setSelectedWords([]);
   };
   let dontKnowSelectedWords = () => {
     props.dontKnowWords(selectedWords);
-    setSelectedWords([]);
   };
   let toggleSelectAll = () => {
     let words = props.dictionary.words;
     if (selectedWords.length < words.length) {
-      setSelectedWords(words);
+      props.setSelectedWords(words);
     } else {
-      setSelectedWords([]);
+      props.setSelectedWords([]);
     }
   };
 
@@ -63,21 +55,21 @@ function MyDictionaryContainer(props) {
   }
   return (
     <MyDictionary
+      {...props}
       know={props.know}
       dontKnow={props.dontKnow}
-      toggleSelectedWord={toggleSelectedWord}
       knowSelectedWords={knowSelectedWords}
       dontKnowSelectedWords={dontKnowSelectedWords}
       toggleSelectAll={toggleSelectAll}
       deleteDictionary={deleteFromPersonals}
       dictionary={props.dictionary}
-      selectedWords={selectedWords}
     />
   );
 }
 
 const mapState = (state) => ({
   dictionary: state.personalDictionaries.personalDictionary,
+  selectedWords: state.words.selectedWords,
 });
 
 export default compose(
@@ -88,6 +80,8 @@ export default compose(
     dontKnow: setDontKnowWordThunkCreator,
     knowWords: setKnowSelectedWordsThunkCreator,
     dontKnowWords: setDontKnowSelectedWordsThunkCreator,
+    toggleSelectedWord: toggleSelectedWord,
+    setSelectedWords: setSelectedWords,
   }),
   withRouter
 )(MyDictionaryContainer);

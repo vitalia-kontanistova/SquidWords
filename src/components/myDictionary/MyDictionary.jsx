@@ -39,7 +39,7 @@ const MyDictionary = (props) => {
             <input
               type="checkbox"
               checked={props.selectedWords.length === words.length}
-              onClick={props.toggleSelectAll}
+              onChange={props.toggleSelectAll}
             />
             Выбрать все
           </label>
