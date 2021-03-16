@@ -4,12 +4,10 @@ import { connect } from "react-redux";
 import {
   getDictionary,
   getWords,
-  getWordsToStudy,
 } from "../../redux/words_selectors";
 import { getCurrentDictionaryThunkCreator } from "../../redux/dictionaries_reducer";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
-import { setWordToStudy } from "../../redux/words_reducer";
 import Preloader from "../preloader/Preloader";
 
 function DictionaryContainer(props) {

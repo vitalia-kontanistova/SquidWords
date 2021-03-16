@@ -41,7 +41,7 @@ export const WordsListStyled = styled.div`
   border-radius: 5px;
   margin-top: 15px;
 `;
-export const WordsStyled = styled.div`
+export const WordStyled = styled.div`
   display: grid;
   grid-template-columns: min-content 41px 2fr 2fr 4fr 1fr 85px;
 `;

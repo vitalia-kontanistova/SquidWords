@@ -18,29 +18,20 @@ import {
 } from "../../redux/words_reducer";
 
 function MyDictionaryContainer(props) {
+  let currentId = props.match.params.dictionaryId;
   useEffect(() => {
-    props.getDictionary(props.match.params.dictionaryId);
-
-    console.log("MyDictionaryContainer " + props.selectedWords.length);
-  }, [props.dictionary.id, props.selectedWords.length]);
+    props.getDictionary(currentId);
+    setSelectedWords([]);
+  }, [currentId, props.dictionary.id, props.selectedWords.length]);
 
   let [isRemoved, setRemovingStatus] = useState(false);
   let deleteFromPersonals = () => {
     props.deleteDictionary(props.dictionary.id);
     setRemovingStatus(true);
   };
-
-  let selectedWords = props.selectedWords;
-  let knowSelectedWords = () => {
-    props.knowWords(selectedWords);
-  };
-  let dontKnowSelectedWords = () => {
-    props.dontKnowWords(selectedWords);
-  };
   let toggleSelectAll = () => {
-    let words = props.dictionary.words;
-    if (selectedWords.length < words.length) {
-      props.setSelectedWords(words);
+    if (props.selectedWords.length < props.dictionary.words.length) {
+      props.setSelectedWords(props.dictionary.words);
     } else {
       props.setSelectedWords([]);
     }
@@ -53,16 +44,15 @@ function MyDictionaryContainer(props) {
   if (isRemoved) {
     return <Redirect to="/my-dictionaries" />;
   }
+
   return (
     <MyDictionary
-      {...props}
-      know={props.know}
-      dontKnow={props.dontKnow}
-      knowSelectedWords={knowSelectedWords}
-      dontKnowSelectedWords={dontKnowSelectedWords}
+      dictionary={props.dictionary}
+      selectedWords={props.selectedWords}
+      knowWords={props.knowWords}
+      dontKnowWords={props.dontKnowWords}
       toggleSelectAll={toggleSelectAll}
       deleteDictionary={deleteFromPersonals}
-      dictionary={props.dictionary}
     />
   );
 }
