@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { connect } from "react-redux";
 import FirstLesson from "./FirstLesson";
 
 const FirstLessonContainer = (props) => {
@@ -15,6 +14,4 @@ const FirstLessonContainer = (props) => {
   return <FirstLesson {...props} nextButtonClick={nextButtonClick} />;
 };
 
-const mapState = (state) => ({});
-
-export default connect(mapState, {})(FirstLessonContainer);
+export default FirstLessonContainer;

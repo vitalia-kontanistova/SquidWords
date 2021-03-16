@@ -1,16 +1,32 @@
 import React from "react";
-import { Button, Title } from "../../styledComponents/StyledComponents.styled";
+import { Title } from "../../styledComponents/StyledComponents.styled";
+import {
+  StyledAdditionalBlock,
+  StyledButtonBlock,
+  StyledLesson,
+  StyledMainBlock,
+  StyledNextButton,
+} from "../LessonStyled.styled";
 
 const ThirdLesson = (props) => {
   return (
-    <div>
+    <>
       <Title>THIRD</Title>
-      <div>
-        {props.words[0].wordOrigin} {props.words[0].wordTranscription}
-      </div>
-      <div>{props.words[0].wordTranslate}</div>
-      <Button onClick={props.nextButtonClick}>Дальше</Button>
-    </div>
+      <StyledLesson>
+        <StyledMainBlock>
+          <div>{props.words[0].wordOrigin} </div>
+          <div>{props.words[0].wordTranscription}</div>
+        </StyledMainBlock>
+        <StyledAdditionalBlock>
+          {props.words[0].wordTranslate}
+        </StyledAdditionalBlock>
+        <StyledButtonBlock>
+          <StyledNextButton onClick={props.nextButtonClick}>
+            Дальше
+          </StyledNextButton>
+        </StyledButtonBlock>
+      </StyledLesson>
+    </>
   );
 };
 
